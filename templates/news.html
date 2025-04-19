@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Новости спорта</h1>
+<ul class="news-list">
+    {% for item in news %}
+        <li class="news-item">
+            <h2><a href="{{ url_for('news_detail', news_id=item.id) }}">{{ item.title }}</a></h2>
+            <p>{{ item.content[:150] }}...</p> <!-- Обрезаем текст для краткого описания -->
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

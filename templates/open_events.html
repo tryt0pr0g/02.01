@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Открытые мероприятия</h1>
+<ul class="events-list">
+    {% for event in events %}
+        <li class="event-item">
+            <h2><a href="{{ url_for('event_detail', event_id=event.id) }}">{{ event.name }}</a></h2>
+            <p>{{ event.description[:150] }}...</p>
+
+            {% if 'user_id' in session %}
+                {% set is_registered = event.id in user_registrations %}
+                <form method="post" action="{{ url_for('toggle_event', event_id=event.id) }}">
+                    <button type="submit">
+                        {% if is_registered %}
+                            Отказаться от участия
+                        {% else %}
+                            Записаться
+                        {% endif %}
+                    </button>
+                </form>
+            {% else %}
+                <p class="warning">Войдите, чтобы записаться</p>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

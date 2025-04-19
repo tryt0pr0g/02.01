@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Личный кабинет</h1>
+
+<!-- Общая информация -->
+<section>
+    <h2>Общая информация</h2>
+    <p><strong>ФИО:</strong> {{ user.full_name or "Не указано" }}</p>
+    <p><strong>Год рождения:</strong> {{ user.birth_year or "Не указано" }}</p>
+    <p><strong>Телефон:</strong> {{ user.phone }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+</section>
+
+<!-- Спортивные секции -->
+<section>
+    <h2>Спортивные секции</h2>
+    <ul>
+        {% for section in sections %}
+            <li>{{ section.section_name }}</li>
+        {% else %}
+            <p>Вы пока не состоите ни в одной секции.</p>
+        {% endfor %}
+    </ul>
+</section>
+
+<!-- Открытые мероприятия -->
+<section>
+    <h2>Записи на мероприятия</h2>
+    <ul>
+        {% for event in upcoming_events %}
+            <li><strong>{{ event.name }}</strong>: {{ event.description }}</li>
+        {% else %}
+            <p>Вы пока не записаны на мероприятия.</p>
+        {% endfor %}
+    </ul>
+</section>
+
+<!-- Прошедшие мероприятия -->
+<section>
+    <h2>Результаты мероприятий</h2>
+    <ul>
+        {% for event in past_events %}
+            <li><strong>{{ event.name }}</strong>: {{ event.description }} (Результат: {{ event.results }})</li>
+        {% else %}
+            <p>Вы пока не участвовали в прошедших мероприятиях.</p>
+        {% endfor %}
+    </ul>
+</section>
+
+<!-- Кнопки управления профилем -->
+<div class="buttons">
+    <a href="{{ url_for('edit_profile') }}" class="button">Изменить информацию</a>
+    <a href="{{ url_for('change_password') }}" class="button">Поменять пароль</a>
+</div>
+
+{% endblock %}

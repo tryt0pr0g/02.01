@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Закрытые мероприятия</h1>
+<ul class="events-list">
+    {% for event in events %}
+        <li class="event-item">
+            <h2><a href="{{ url_for('event_detail', event_id=event.id) }}">{{ event.name }}</a></h2>
+            <p>{{ event.description[:150] }}...</p>
+            <p><strong>Результаты:</strong> {{ event.results }}</p>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

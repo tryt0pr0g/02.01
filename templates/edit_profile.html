@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Редактирование профиля</h1>
+<form method="post">
+    <label>ФИО</label>
+    <input type="text" name="full_name" value="{{ user.full_name or '' }}" required>
+
+    <label>Год рождения</label>
+    <input type="number" name="birth_year" value="{{ user.birth_year or '' }}" required>
+
+    <label>Телефон</label>
+    <input type="text" name="phone" value="{{ user.phone }}" required>
+
+    <label>Email</label>
+    <input type="email" name="email" value="{{ user.email }}" required>
+
+    <button type="submit">Сохранить изменения</button>
+</form>
+{% endblock %}

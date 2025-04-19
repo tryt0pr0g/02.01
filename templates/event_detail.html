@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ event.name }}</h1>
+<p>{{ event.description }}</p>
+
+{% if event.status == "closed" %}
+    <p><strong>Результаты:</strong> {{ event.results }}</p>
+{% else %}
+    {% if 'user_id' in session %}
+        {% set is_registered = event.id in user_registrations %}
+        <form method="post" action="{{ url_for('toggle_event', event_id=event.id) }}">
+            <button type="submit">
+                {% if is_registered %}
+                    Отказаться от участия
+                {% else %}
+                    Записаться
+                {% endif %}
+            </button>
+        </form>
+    {% else %}
+        <p class="warning">Войдите, чтобы записаться</p>
+    {% endif %}
+{% endif %}
+
+<a href="{{ url_for('open_events') }}">← Вернуться к мероприятиям</a>
+{% endblock %}
